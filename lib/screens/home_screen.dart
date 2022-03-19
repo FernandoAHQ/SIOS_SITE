@@ -38,96 +38,74 @@ class HomeScreen extends StatelessWidget {
           },
         ),
 
-        // TODO: Mover el Circle avatar
-        // actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.all(3),
-        //     child: ClipRRect(
-        //       borderRadius: BorderRadius.circular(100),
-        //         child: SizedBox(
-        //           height: size.height * 0.07,
-        //           width: size.height * 0.07,
-        //           child: FadeInImage(
-        //           placeholder: const AssetImage('assets/loading.gif'),
-        //           image: NetworkImage(user.image),
-        //           fit: BoxFit.cover,
-        //       ),
-        //         ),
-        //     ),
-        //   )
-        // ],
       ),
 
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
+      body: Column(
+        children: [
       
-            Container(
-              height: size.height*.15,
-              decoration: const BoxDecoration(
-                color: Apptheme.primarylight,
-              ),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: size.width*.02),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100)
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: FadeInImage(
-                          height: size.height*.08,
-                          width: size.height*.08,
-                          placeholder: const AssetImage('assets/loading.gif'),
-                          image: NetworkImage(user.image)),
-                      ),
+          Container(
+            height: size.height*.15,
+            decoration: const BoxDecoration(
+              color: Apptheme.primarylight,
+            ),
+            child: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width*.02),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100)
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: FadeInImage(
+                        height: size.height*.08,
+                        width: size.height*.08,
+                        placeholder: const AssetImage('assets/loading.gif'),
+                        image: NetworkImage(user.image)),
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Hola',style: TextStyle(color: Apptheme.white,fontSize: 16),),
+                    Text(user.name,style: const TextStyle(color: Apptheme.white,fontWeight: FontWeight.bold,fontSize: 24),),
+                  ],
+                )
+              ],
+            ),
+          ),
+          Container(
+            decoration: const BoxDecoration(
+              color: Apptheme.white,
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(30) ,topRight: Radius.circular(30))
+            ),
+            // height: size.height*.75,
+            width: double.infinity,
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width*.1,vertical: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Hola',style: TextStyle(color: Apptheme.white,fontSize: 16),),
-                      Text(user.name,style: const TextStyle(color: Apptheme.white,fontWeight: FontWeight.bold,fontSize: 24),),
+                      Text('Hoy',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                      Text('5'),
                     ],
-                  )
-                ],
-              ),
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                color: Apptheme.white,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(30) ,topRight: Radius.circular(30))
-              ),
-              height: size.height*.74,
-              width: double.infinity,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: size.width*.1,vertical: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Hoy',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                        Text('5'),
-                      ],
-                    ),
                   ),
-      
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: 1,
-                      itemBuilder: (_,int index) => _ReportCard()
-                    ),
-                  )
-      
-                ],
-              ),
+                ),
+              
+                // ListView.builder(
+                //   itemCount: 1,
+                //   itemBuilder: (_,int index) => _ReportCard()
+                // )
+
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
 
     );
@@ -135,8 +113,6 @@ class HomeScreen extends StatelessWidget {
 }
 
 class _ReportCard extends StatelessWidget {
-  _ReportCard({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +122,7 @@ class _ReportCard extends StatelessWidget {
     return Container(
 
       height: size.height*.15,
-      // color: Colors.blue,
+      color: Colors.blue,
       padding: const EdgeInsets.all(10),
 
       child: Row(
