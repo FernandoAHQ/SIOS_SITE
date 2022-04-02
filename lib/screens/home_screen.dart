@@ -77,32 +77,38 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            decoration: const BoxDecoration(
-              color: Apptheme.white,
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(30) ,topRight: Radius.circular(30))
-            ),
-            // height: size.height*.75,
-            width: double.infinity,
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width*.1,vertical: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Hoy',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                      Text('5'),
-                    ],
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Apptheme.white,
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(30) ,topRight: Radius.circular(30))
+              ),
+              width: double.infinity,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.width*.1,vertical: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Hoy',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                        Container(
+                          child: const Text('5')
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              
-                // ListView.builder(
-                //   itemCount: 1,
-                //   itemBuilder: (_,int index) => _ReportCard()
-                // )
-
-              ],
+                
+                  Expanded(
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: 10,
+                      itemBuilder: (_,int index) => _ReportCard()
+                    ),
+                  )
+            
+                ],
+              ),
             ),
           ),
         ],
@@ -122,7 +128,6 @@ class _ReportCard extends StatelessWidget {
     return Container(
 
       height: size.height*.15,
-      color: Colors.blue,
       padding: const EdgeInsets.all(10),
 
       child: Row(
@@ -142,6 +147,7 @@ class _ReportCard extends StatelessWidget {
           ),
           
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //TODO TITULO
 

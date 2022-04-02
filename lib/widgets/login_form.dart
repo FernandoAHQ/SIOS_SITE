@@ -43,6 +43,7 @@ class _Form extends StatelessWidget {
         children: [
           
           CustomTextFormField(
+            keyboardType: TextInputType.number,
             prefixIcon: Icons.person,
             hintText: 'Usuario',
             validator: (value) => value!.length == 8 ?'Usuario invalido': null,
@@ -54,6 +55,7 @@ class _Form extends StatelessWidget {
           CustomTextFormField(
             prefixIcon: Icons.lock,
             hintText: 'Contraseña',
+            keyboardType: TextInputType.number,
             obscureText: true,
             validator: (value) => value!.isEmpty?'Contraseña':null,
             onChanged: (value) => loginProvider.password = value!,
