@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
     final user = loginService.user;
 
     final socketprov = Provider.of<SocketProvider>(context);
-    
+
     return Scaffold(
 
       backgroundColor: Apptheme.primarylight,
@@ -93,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         const Text('Hoy',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                         Container(
-                          child: const Text('5')
+                          child: Text(socketprov.services.length.toString())
                         ),
                       ],
                     ),
@@ -102,8 +102,8 @@ class HomeScreen extends StatelessWidget {
                   Expanded(
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                      itemCount: 10,
-                      itemBuilder: (_,int index) => _ReportCard()
+                      itemCount: socketprov.services.length,
+                      itemBuilder: (_,int index) => _ReportCard(service: socketprov.services[index],)
                     ),
                   )
             
@@ -120,19 +120,24 @@ class HomeScreen extends StatelessWidget {
 
 class _ReportCard extends StatelessWidget {
 
+  final dynamic service;
+
+  const _ReportCard({
+    this.service
+  });
+
   @override
   Widget build(BuildContext context) {
 
     final size = MediaQuery.of(context).size;
     
     return Container(
-
+     // width: size.width,
       height: size.height*.15,
       padding: const EdgeInsets.all(10),
 
       child: Row(
         children: [
-          //TODO FOTO DEL REPORTE
 
           Padding(
             padding: const EdgeInsets.only(right: 10),
@@ -146,25 +151,38 @@ class _ReportCard extends StatelessWidget {
             ),
           ),
           
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //TODO TITULO
+          Container(
+             width: size.width*0.7,
+            child: Column(
+              mainAxisAlignment:MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
 
-              Text('report-title',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 24),),
+                Text(service['report']['title'],
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.start,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18
+                ),),
 
-              //TODO DEPARTAMENTO
-
-              Text('department',style: TextStyle(color: Colors.black,fontSize: 18),),
-              
-              //TODO HORA
-
-              Text('time',style: TextStyle(color: Color(0xFF787878),fontWeight: FontWeight.bold,fontSize: 16),)
-              
-            ],
+                Text(service['report']['department'],
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 18
+                ),),
+                
+                Text(service['report']['createdAt'],
+                style: const TextStyle(
+                  color: Color(0xFF787878),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),)
+                
+              ],
+            ),
           )
 
-          //TODO STATUS
         ],
       ),
       

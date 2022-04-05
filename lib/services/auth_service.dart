@@ -20,8 +20,8 @@ class AuthService extends ChangeNotifier{
       'password': password
     };
 
-    final resp = await http.post( Uri.parse('https://sios-server.herokuapp.com/api/auth/login'),
-    // final resp = await http.post( Uri.parse('http://10.1.25.14:3000/api/auth/login'),
+    // final resp = await http.post( Uri.parse('https://sios-server.herokuapp.com/api/auth/login'),
+    final resp = await http.post( Uri.parse('http://10.1.25.46:4000/api/auth/login'),
       body: jsonEncode(authData),
       headers: {
         'Content-Type': 'application/json'
@@ -58,8 +58,8 @@ class AuthService extends ChangeNotifier{
 
     final token = await storage.read(key: 'token') ?? 'olakease';
     
-    final resp = await http.get(Uri.parse('https://sios-server.herokuapp.com/api/auth/renew'),headers: {
-    // final resp = await http.get(Uri.parse('http://10.1.25.14:3000/api/auth/renew'),headers: {
+    // final resp = await http.get(Uri.parse('https://sios-server.herokuapp.com/api/auth/renew'),headers: {
+    final resp = await http.get(Uri.parse('http://10.1.25.46:4000/api/auth/renew'),headers: {
       'authorization': 'Bearer $token'
     });
 
