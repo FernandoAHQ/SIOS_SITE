@@ -167,7 +167,9 @@ class _ReportCard extends StatelessWidget {
                   fontSize: 18
                 ),),
 
-                Text(service['report']['department'],
+                Text(service['report']['department']['name'],
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18
