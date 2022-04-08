@@ -9,7 +9,7 @@ import 'package:sios_app/models/models.dart';
 class AuthService extends ChangeNotifier{
 
   late User user;
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
 
   //* Funcion que hace la peticion de Login
 
@@ -20,8 +20,8 @@ class AuthService extends ChangeNotifier{
       'password': password
     };
 
-    // final resp = await http.post( Uri.parse('https://sios-server.herokuapp.com/api/auth/login'),
-    final resp = await http.post( Uri.parse('http://10.1.25.46:4000/api/auth/login'),
+    final resp = await http.post( Uri.parse('https://sios-server.herokuapp.com/api/auth/login'),
+    // final resp = await http.post( Uri.parse('http://10.1.25.46:4000/api/auth/login'),
       body: jsonEncode(authData),
       headers: {
         'Content-Type': 'application/json'
@@ -58,8 +58,8 @@ class AuthService extends ChangeNotifier{
 
     final token = await storage.read(key: 'token') ?? 'olakease';
     
-    // final resp = await http.get(Uri.parse('https://sios-server.herokuapp.com/api/auth/renew'),headers: {
-    final resp = await http.get(Uri.parse('http://10.1.25.46:4000/api/auth/renew'),headers: {
+    final resp = await http.get(Uri.parse('https://sios-server.herokuapp.com/api/auth/renew'),headers: {
+    // final resp = await http.get(Uri.parse('http://10.1.25.46:4000/api/auth/renew'),headers: {
       'authorization': 'Bearer $token'
     });
 
@@ -78,7 +78,7 @@ class AuthService extends ChangeNotifier{
 
   static Future<String> getToken() async {
     
-    final _storage = new FlutterSecureStorage();
+    const _storage = FlutterSecureStorage();
     final token = await _storage.read(key: 'token');
     return token!;
 

@@ -17,7 +17,7 @@ class LoadingScreen extends StatelessWidget {
     final socketprov = Provider.of<SocketProvider>(context, listen: false);
 
     return Scaffold(
-      backgroundColor: Color(0xff3366ff),
+      backgroundColor: const Color(0xff3366ff),
       // body: LoadingWidget(),
       body: FutureBuilder(
         future: loginService.verifyToken(),

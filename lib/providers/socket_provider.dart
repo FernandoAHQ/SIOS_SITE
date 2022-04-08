@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart' as io;
 
 import 'package:sios_app/services/auth_service.dart';
 
 enum ServerStatus {
-  Online,
-  Offline,
-  Connecting
+  online,
+  offline,
+  connecting
 }
 
 class SocketProvider extends ChangeNotifier{
 
-  ServerStatus _serverStatus = ServerStatus.Connecting;
+  ServerStatus _serverStatus = ServerStatus.connecting;
 
-  late IO.Socket _socket;
+  late io.Socket _socket;
 
   late dynamic services = [];
 
   ServerStatus get serverStatus => _serverStatus;
-  IO.Socket    get socket       => _socket;
+  io.Socket    get socket       => _socket;
   
   Function get emit => _socket.emit;
   
@@ -26,10 +26,10 @@ class SocketProvider extends ChangeNotifier{
 
     final token = await AuthService.getToken();
 
-    // _socket = IO.io('https://sios-server.herokuapp.com/',
-    _socket = IO.io('http://10.1.25.46:4000/',
+    _socket = io.io('https://sios-server.herokuapp.com/',
+    // _socket = io.io('http://10.1.25.46:4000/',
 
-      IO.OptionBuilder()
+      io.OptionBuilder()
         .setTransports(['websocket'])
         .enableForceNew()
         .setQuery({
@@ -41,20 +41,20 @@ class SocketProvider extends ChangeNotifier{
 
     _socket.on('connect', (_) {
       
-      _serverStatus = ServerStatus.Online;
+      _serverStatus = ServerStatus.online;
       notifyListeners();
 
     });
 
     _socket.on('disconnect', (_) {
       
-      _serverStatus = ServerStatus.Offline;
+      _serverStatus = ServerStatus.offline;
       notifyListeners();
       
     });
 
     _socket.on('services-list', (servicios){
-      
+      print(servicios[0]['status']);
       services = servicios;
       notifyListeners();
 

@@ -93,7 +93,13 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         const Text('Hoy',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                         Container(
-                          child: Text(socketprov.services.length.toString())
+                          width: size.height*.04,
+                          height: size.height*.04,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadiusDirectional.circular(100),
+                            color: const Color(0xfffcefe0)
+                          ),
+                          child: Center(child: Text(socketprov.services.length.toString(),style: const TextStyle(color: Color(0xffff687b),fontSize: 18,fontWeight: FontWeight.w600)))
                         ),
                       ],
                     ),
@@ -145,14 +151,14 @@ class _ReportCard extends StatelessWidget {
               height: size.height*.1,
               width: size.height*.1,
               decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(1000)
+                color: const Color(0xff9bcb87),
+                borderRadius: BorderRadius.circular(100)
               ),
             ),
           ),
           
           Container(
-             width: size.width*0.7,
+             width: size.width*0.5,
             child: Column(
               mainAxisAlignment:MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,29 +166,37 @@ class _ReportCard extends StatelessWidget {
 
                 Text(service['report']['title'],
                 overflow: TextOverflow.ellipsis,
+                maxLines: 1,
                 textAlign: TextAlign.start,
                 style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
-                  fontSize: 18
+                  fontSize: 17
                 ),),
 
                 Text(service['report']['department']['name'],
-                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
+                maxLines: 1,
                 style: const TextStyle(
                   color: Colors.black,
-                  fontSize: 18
+                  fontSize: 16
                 ),),
                 
                 Text(service['report']['createdAt'],
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
                 style: const TextStyle(
                   color: Color(0xFF787878),
                   fontWeight: FontWeight.bold,
-                  fontSize: 16),)
+                ),)
                 
               ],
             ),
+          ),
+
+          Expanded(
+            // child: Text('En proceso',textAlign: TextAlign.center,),
+            child: Text(setStatus(),textAlign: TextAlign.center,),
           )
 
         ],
@@ -190,4 +204,17 @@ class _ReportCard extends StatelessWidget {
       
     );
   }
+
+  String setStatus(){
+
+    if ( service['status']== 'pending') {
+      return 'Pendiente';
+    }
+    else{
+      
+    }
+
+    return 'de pelos';
+  }
+
 }
