@@ -207,14 +207,25 @@ class _ReportCard extends StatelessWidget {
 
   String setStatus(){
 
-    if ( service['status']== 'pending') {
+    if (service['status'] == 'pending') {
       return 'Pendiente';
     }
+    else if(service['status'] == 'completed'){
+      return 'Completao Mi pana'; 
+    }
+    else if(service['status'] == 'completed'){
+      return 'Completao Mi pana'; 
+    }
+    else if(service['status'] == 'completed'){
+      return 'Completao Mi pana'; 
+    }
+    else if(service['status'] == 'completed'){
+      return 'Completao Mi pana'; 
+    }
     else{
-      
+      return 'de pelos';
     }
 
-    return 'de pelos';
   }
 
 }
