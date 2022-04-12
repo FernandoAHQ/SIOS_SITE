@@ -6,6 +6,9 @@ import 'package:sios_app/providers/providers.dart';
 import 'package:sios_app/services/auth_service.dart';
 import 'package:sios_app/theme/app_theme.dart';
 
+import 'home_screen_view/history_view.dart';
+import 'home_screen_view/today_view.dart';
+
 class HomeScreen extends StatelessWidget {
    
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,6 +21,8 @@ class HomeScreen extends StatelessWidget {
     final user = loginService.user;
 
     final socketprov = Provider.of<SocketProvider>(context);
+
+    // loginService.getHistory();
 
     return Scaffold(
 
@@ -61,6 +66,7 @@ class HomeScreen extends StatelessWidget {
                       child: FadeInImage(
                         height: size.height*.08,
                         width: size.height*.08,
+                        fit: BoxFit.cover,
                         placeholder: const AssetImage('assets/loading.gif'),
                         image: NetworkImage(user.image)),
                     ),
@@ -77,43 +83,37 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
+          
           Expanded(
             child: Container(
               decoration: const BoxDecoration(
                 color: Apptheme.white,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(30) ,topRight: Radius.circular(30))
               ),
-              width: double.infinity,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: size.width*.1,vertical: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('Hoy',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                        Container(
-                          width: size.height*.04,
-                          height: size.height*.04,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadiusDirectional.circular(100),
-                            color: const Color(0xfffcefe0)
-                          ),
-                          child: Center(child: Text(socketprov.services.length.toString(),style: const TextStyle(color: Color(0xffff687b),fontSize: 18,fontWeight: FontWeight.w600)))
-                        ),
+              width: size.width,
+              child: DefaultTabController(
+                length: 2,
+                child: Column(
+                  children: const [
+                    TabBar(
+
+                      tabs: [
+                        Tab(child: Text('Hoy',style: TextStyle(color: Colors.black),),),
+                        Tab(child: Text('Historial',style: TextStyle(color: Colors.black),),),
                       ],
+                      
                     ),
-                  ),
-                
-                  Expanded(
-                    child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: socketprov.services.length,
-                      itemBuilder: (_,int index) => _ReportCard(service: socketprov.services[index],)
-                    ),
-                  )
-            
-                ],
+
+                    Expanded(
+                      child: TabBarView(
+                        children:[
+                          TodayView(),
+                          HistoryView(),
+                        ],
+                      )
+                    )
+                  ],
+                )
               ),
             ),
           ),
@@ -122,110 +122,4 @@ class HomeScreen extends StatelessWidget {
 
     );
   }
-}
-
-class _ReportCard extends StatelessWidget {
-
-  final dynamic service;
-
-  const _ReportCard({
-    this.service
-  });
-
-  @override
-  Widget build(BuildContext context) {
-
-    final size = MediaQuery.of(context).size;
-    
-    return Container(
-     // width: size.width,
-      height: size.height*.15,
-      padding: const EdgeInsets.all(10),
-
-      child: Row(
-        children: [
-
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: Container(
-              height: size.height*.1,
-              width: size.height*.1,
-              decoration: BoxDecoration(
-                color: const Color(0xff9bcb87),
-                borderRadius: BorderRadius.circular(100)
-              ),
-            ),
-          ),
-          
-          Container(
-             width: size.width*0.5,
-            child: Column(
-              mainAxisAlignment:MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-
-                Text(service['report']['title'],
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                textAlign: TextAlign.start,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17
-                ),),
-
-                Text(service['report']['department']['name'],
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16
-                ),),
-                
-                Text(service['report']['createdAt'],
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: const TextStyle(
-                  color: Color(0xFF787878),
-                  fontWeight: FontWeight.bold,
-                ),)
-                
-              ],
-            ),
-          ),
-
-          Expanded(
-            // child: Text('En proceso',textAlign: TextAlign.center,),
-            child: Text(setStatus(),textAlign: TextAlign.center,),
-          )
-
-        ],
-      ),
-      
-    );
-  }
-
-  String setStatus(){
-
-    if (service['status'] == 'pending') {
-      return 'Pendiente';
-    }
-    else if(service['status'] == 'completed'){
-      return 'Completao Mi pana'; 
-    }
-    else if(service['status'] == 'completed'){
-      return 'Completao Mi pana'; 
-    }
-    else if(service['status'] == 'completed'){
-      return 'Completao Mi pana'; 
-    }
-    else if(service['status'] == 'completed'){
-      return 'Completao Mi pana'; 
-    }
-    else{
-      return 'de pelos';
-    }
-
-  }
-
 }

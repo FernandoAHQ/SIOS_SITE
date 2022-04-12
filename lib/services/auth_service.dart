@@ -31,11 +31,9 @@ class AuthService extends ChangeNotifier{
     final Map<String,dynamic> decodedResp = json.decode(resp.body);
 
     if(decodedResp.containsKey('accessToken')){
-      // print(decodedResp['accessToken']);
       await storage.write(key: 'token', value: decodedResp['accessToken']);
 
       user = User.convertirJson(decodedResp['user']);
-      // print(user.name);
       return true;
     }else{
       return false;
@@ -67,7 +65,6 @@ class AuthService extends ChangeNotifier{
 
     if(decodedResp['status'] == true){
       user = User.convertirJson(decodedResp['user']);
-      // print(user.name);
     }
     
     return decodedResp['status'];
@@ -82,6 +79,18 @@ class AuthService extends ChangeNotifier{
     final token = await _storage.read(key: 'token');
     return token!;
 
+  }
+
+  Future<dynamic> getHistory() async{
+
+    final resp = await http.get( Uri.parse('https://sios-server.herokuapp.com/api/services/history/site/623e5a9d5516abd648a35230'),
+    // final resp = await http.post( Uri.parse('http://10.1.25.46:4000/api/services/history/site/'),
+    );
+
+    // final Map<String,dynamic> decodedResp = json.decode(resp.body);
+    print(resp.body);
+
+    
   }
 
 }

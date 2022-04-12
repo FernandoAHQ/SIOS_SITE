@@ -54,7 +54,6 @@ class SocketProvider extends ChangeNotifier{
     });
 
     _socket.on('services-list', (servicios){
-      print(servicios);
       services = servicios;
       notifyListeners();
 

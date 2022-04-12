@@ -77,7 +77,7 @@ class _Form extends StatelessWidget {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
             child:Container(
               padding: const EdgeInsets.symmetric(horizontal: 80,vertical: 10),
-              child: const Text('Iniciar Sesión',style: TextStyle(color: Apptheme.white,fontSize: 22),)
+              child: const Text('Iniciar Sesión',style: TextStyle(color: Apptheme.white,fontSize: 22),textAlign: TextAlign.center,)
             ),
             onPressed:
             () async {
