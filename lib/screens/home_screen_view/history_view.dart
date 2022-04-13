@@ -7,7 +7,7 @@ class HistoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: 15,
-      itemBuilder: (_,int index) => _HistoryCard(),
+      itemBuilder: (_,int index) => const _HistoryCard(),
       physics: const BouncingScrollPhysics(),
     );
   }
@@ -47,7 +47,7 @@ class _HistoryCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment:MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: const [
     
                   Text(
                   'title',
@@ -55,7 +55,7 @@ class _HistoryCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   textAlign: TextAlign.start,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 17
@@ -66,7 +66,7 @@ class _HistoryCard extends StatelessWidget {
                   // service['report']['department']['name'],
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.black,
                     fontSize: 16
                   ),),
@@ -76,7 +76,7 @@ class _HistoryCard extends StatelessWidget {
                   // service['report']['createdAt'],
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Color(0xFF787878),
                     fontWeight: FontWeight.bold,
                   ),)
@@ -85,7 +85,7 @@ class _HistoryCard extends StatelessWidget {
               ),
             ),
     
-            Expanded(
+            const Expanded(
               // child: Text('En proceso',textAlign: TextAlign.center,),
               child: Text('status',textAlign: TextAlign.center,maxLines: 1,overflow: TextOverflow.ellipsis,),
             )

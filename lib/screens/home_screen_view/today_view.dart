@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sios_app/providers/providers.dart';
+import 'package:intl/intl.dart';
+import 'package:sios_app/widgets/widgets.dart';
 
 
 class TodayView extends StatelessWidget {
@@ -30,8 +32,10 @@ class _ReportCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    var parsedDate = DateFormat('KK:mm:ss').format(DateTime.parse(service['report']['createdAt']));
+
     final size = MediaQuery.of(context).size;
-    
+
     return GestureDetector(
       onTap: () => Navigator.pushNamed(context, 'details'),
       child: Container(
@@ -41,20 +45,10 @@ class _ReportCard extends StatelessWidget {
         child: Row(
           children: [
     
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: Container(
-                height: size.height*.1,
-                width: size.height*.1,
-                decoration: BoxDecoration(
-                  color: const Color(0xff9bcb87),
-                  borderRadius: BorderRadius.circular(100)
-                ),
-              ),
-            ),
+            SeverityImage(size: size, service: service),
             
             SizedBox(
-               width: size.width*0.5,
+               width: size.width*0.45,
               child: Column(
                 mainAxisAlignment:MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +61,7 @@ class _ReportCard extends StatelessWidget {
                   style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontSize: 17
+                    fontSize: 15
                   ),),
     
                   Text(service['report']['department']['name'],
@@ -75,15 +69,17 @@ class _ReportCard extends StatelessWidget {
                   maxLines: 1,
                   style: const TextStyle(
                     color: Colors.black,
-                    fontSize: 16
+                    fontSize: 14
                   ),),
                   
-                  Text(service['report']['createdAt'],
+                  Text(
+                  parsedDate.toString(),
                   overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
+                  maxLines: 2,
                   style: const TextStyle(
                     color: Color(0xFF787878),
                     fontWeight: FontWeight.bold,
+                    fontSize: 10
                   ),)
                   
                 ],
@@ -91,8 +87,7 @@ class _ReportCard extends StatelessWidget {
             ),
     
             Expanded(
-              // child: Text('En proceso',textAlign: TextAlign.center,),
-              child: Text(setStatus(),textAlign: TextAlign.center,maxLines: 1,overflow: TextOverflow.ellipsis,),
+              child: StatusWidget(service: service),
             )
     
           ],
@@ -100,29 +95,6 @@ class _ReportCard extends StatelessWidget {
         
       ),
     );
-  }
-
-  String setStatus(){
-
-    if (service['status'] == 'pending') {
-      return 'Pendiente';
-    }
-    else if(service['status'] == 'completed'){
-      return 'Completao Mi pana'; 
-    }
-    else if(service['status'] == 'completed'){
-      return 'Completao Mi pana'; 
-    }
-    else if(service['status'] == 'completed'){
-      return 'Completao Mi pana'; 
-    }
-    else if(service['status'] == 'completed'){
-      return 'Completao Mi pana'; 
-    }
-    else{
-      return 'de pelos';
-    }
-
   }
 
 }

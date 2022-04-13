@@ -9,6 +9,9 @@ class DetailService extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Apptheme.primarylight,
       ),
+      body: const Center(
+        child: Text('details-screen')
+      )
     );
   }
 }
