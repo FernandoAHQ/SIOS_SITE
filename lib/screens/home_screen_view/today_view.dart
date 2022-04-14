@@ -37,7 +37,7 @@ class _ReportCard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, 'details'),
+      onTap: () => Navigator.pushNamed(context, 'details',arguments: service['_id']),
       child: Container(
         height: size.height*.15,
         padding: const EdgeInsets.all(10),
@@ -61,7 +61,7 @@ class _ReportCard extends StatelessWidget {
                   style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontSize: 15
+                    fontSize: 12
                   ),),
     
                   Text(service['report']['department']['name'],
@@ -69,7 +69,7 @@ class _ReportCard extends StatelessWidget {
                   maxLines: 1,
                   style: const TextStyle(
                     color: Colors.black,
-                    fontSize: 14
+                    fontSize: 12
                   ),),
                   
                   Text(
@@ -79,7 +79,7 @@ class _ReportCard extends StatelessWidget {
                   style: const TextStyle(
                     color: Color(0xFF787878),
                     fontWeight: FontWeight.bold,
-                    fontSize: 10
+                    fontSize: 11
                   ),)
                   
                 ],

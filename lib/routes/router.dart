@@ -7,5 +7,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'loading'  : (context) => const LoadingScreen(),
   'login'  : (_) => const LoginScreen(),
   'home'  : (context) => const HomeScreen(),
-  'details'  : (context) => const DetailService(),
+  'details'  : (context) =>  DetailService(),
 };

@@ -17,8 +17,8 @@ class SeverityImage extends StatelessWidget {
       padding: const EdgeInsets.only(right: 10),
       child: Container(
         child: Image(image: setImage(service['severity']),fit: BoxFit.cover,),
-        height: size.height*.1,
-        width: size.height*.1,
+        height: size.height*0.09,
+        width: size.height*0.09,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100)
         ),
