@@ -8,7 +8,6 @@ import 'package:sios_app/services/services.dart';
 class ServiceQuery extends ChangeNotifier{
 
   Service? service;
-  bool? isLoading;
 
   Future getService (String? idService)async{
 
@@ -18,17 +17,13 @@ class ServiceQuery extends ChangeNotifier{
       'authorization': 'Bearer $token'
     });
 
+    print(resp);
+
     if(resp.statusCode == 200){
       final jsonData = json.decode(resp.body);
-      service = Service.extraerInfo(jsonData);
+      return service = Service.extraerInfo(jsonData);
       
     }
-
-    isLoading = false;
-
-    print(isLoading);
-
-    notifyListeners();
 
   }
   
