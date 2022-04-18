@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sios_app/services/service_query.dart';
 import 'package:sios_app/theme/app_theme.dart';
 
 class DetailService extends StatelessWidget {
@@ -7,9 +9,23 @@ class DetailService extends StatelessWidget {
   Widget build(BuildContext context) {
 
   final size = MediaQuery.of(context).size;
-  final idreport = ModalRoute.of(context)?.settings.arguments;
+  final idreport = ModalRoute.of(context)?.settings.arguments.toString();
+  final serviceProv = Provider.of<ServiceQuery>(context,listen: true);
+  serviceProv.getService(idreport);
+  final service = serviceProv.service;
+  // print('idreport: ' + idreport!);
 
-    return Scaffold(
+  if( serviceProv.isLoading! ){
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  else{
+    
+  return Scaffold(
       appBar: AppBar(
         backgroundColor: Apptheme.primarylight,
       ),
@@ -45,8 +61,8 @@ class DetailService extends StatelessWidget {
                           )  
                         ),
                         padding: const EdgeInsets.all(5),
-                        child: const Text(
-                          'Finalizado',
+                        child: Text(
+                          service!.status,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 10,
@@ -58,42 +74,25 @@ class DetailService extends StatelessWidget {
 
                       //*Titulo del servicio 
 
-                      const Text(
-                        'Titulo del Servicio',
+                      Text(
+                        service.title,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.bold
                         ),
-                      ),
-
-                      //*Texto de Ubicacion 
-                      
-                      const Text(
-                        'Ubicacion',
-                        textAlign: TextAlign.center,
                       ),
 
                       //*Texto de Departamento 
                       
-                      const Text(
-                        'Departamento',
+                      Text(
+                        service.department,
                         textAlign: TextAlign.center,
-                      ),
-
-                      //*Texto de Encargado 
-                      
-                      const Text(
-                        'Encargado',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold
-                        ),
                       ),
 
                       // * Texto de Hora
                       
-                      const Text(
-                        '14-04-2022 11:19:20',
+                      Text(
+                        service.createdAt,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -120,25 +119,25 @@ class DetailService extends StatelessWidget {
                       fontSize: 14
                     ),
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text('Exercitation tempor elit quis laboris voluptate et culpa in. Culpa sit in nostrud aute esse excepteur ullamco tempor commodo incididunt mollit eiusmod culpa. Laborum qui cillum reprehenderit officia voluptate occaecat ut. Do id proident duis esse fugiat consequat incididunt dolor adipisicing sunt non officia nulla. Adipisicing labore dolore elit aliqua non velit cupidatat velit sit laboris. Ea in duis aliquip ullamco deserunt culpa cupidatat quis elit do exercitation deserunt adipisicing Lorem.'),
+                    child: Text(service.description),
                   ),
-                  Row(
-                    children: const [
-                      Text(
-                        'Categoria:',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('Urgenteeeeee perrro Correele sino te corren'),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: const [
+                  //     Text(
+                  //       'Categoria:',
+                  //       style: TextStyle(
+                  //         fontWeight: FontWeight.bold,
+                  //         fontSize: 14
+                  //       ),
+                  //     ),
+                  //     Padding(
+                  //       padding: EdgeInsets.all(8.0),
+                  //       child: Text('Urgenteeeeee perrro Correele sino te corren'),
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ) 
               )
@@ -148,17 +147,26 @@ class DetailService extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextButton(
-                  child: Text('Comenzar',style: TextStyle(color: Apptheme.primarydark),),
-                  onPressed: (){}
 
+                MaterialButton(
+                  color: Apptheme.primarydark,
+                  child: Text('Comenzar',
+                  style: TextStyle(
+                    color: Colors.white
+                  ),),
+                  onPressed: (){} 
                 )
+                
               ],
             )
            
           ],
         ),
       ),
+
+      
     );
+  }
+
   }
 }

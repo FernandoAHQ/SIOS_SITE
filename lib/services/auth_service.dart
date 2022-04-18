@@ -81,16 +81,4 @@ class AuthService extends ChangeNotifier{
 
   }
 
-  Future<dynamic> getHistory() async{
-
-    final resp = await http.get( Uri.parse('https://sios-server.herokuapp.com/api/services/history/site/623e5a9d5516abd648a35230'),
-    // final resp = await http.post( Uri.parse('http://10.1.25.46:4000/api/services/history/site/'),
-    );
-
-    // final Map<String,dynamic> decodedResp = json.decode(resp.body);
-    print(resp.body);
-
-    
-  }
-
 }

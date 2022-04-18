@@ -22,9 +22,7 @@ class HomeScreen extends StatelessWidget {
 
     final socketprov = Provider.of<SocketProvider>(context);
 
-    // loginService.getHistory();
-
-    return Scaffold(
+     return Scaffold(
 
       backgroundColor: Apptheme.primarylight,
 

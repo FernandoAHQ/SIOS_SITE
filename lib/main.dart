@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sios_app/providers/providers.dart';
 import 'package:sios_app/routes/router.dart';
 import 'package:sios_app/services/auth_service.dart';
+import 'package:sios_app/services/service_query.dart';
 import 'package:sios_app/theme/app_theme.dart';
 
 void main() => runApp( MyApp());
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_)=>AuthService()),
         ChangeNotifierProvider(create: (_)=>SocketProvider()),
+        ChangeNotifierProvider(create: (_)=>ServiceQuery()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
