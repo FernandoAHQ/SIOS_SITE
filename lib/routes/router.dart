@@ -6,4 +6,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'login'  : (_) => const LoginScreen(),
   'home'  : (context) => const HomeScreen(),
   'details'  : (context) =>  DetailService(),
+  'feedback'  : (context) =>  FeedbackScreen(),
 };

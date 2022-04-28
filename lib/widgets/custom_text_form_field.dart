@@ -11,6 +11,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool obscureText;
   final String? Function(String?) validator;
   final String? Function(String?) onChanged; 
+  final int? maxLines;
 
   const CustomTextFormField({
     Key? key,
@@ -19,6 +20,7 @@ class CustomTextFormField extends StatelessWidget {
     this.keyboardType,
     this.prefixIcon,
     this.obscureText = false,
+    this.maxLines,
     required this.validator,
     required this.onChanged,
   }) : super(key: key);
@@ -29,6 +31,8 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
 
       keyboardType: keyboardType,
+
+      maxLines: obscureText==true ? 1 : maxLines,
 
       controller: TextEditingController(),
       cursorColor: Apptheme.primarydark,

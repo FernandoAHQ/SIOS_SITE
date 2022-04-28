@@ -17,8 +17,6 @@ class ServiceQuery extends ChangeNotifier{
       'authorization': 'Bearer $token'
     });
 
-    print(resp);
-
     if(resp.statusCode == 200){
       final jsonData = json.decode(resp.body);
       return service = Service.extraerInfo(jsonData);
