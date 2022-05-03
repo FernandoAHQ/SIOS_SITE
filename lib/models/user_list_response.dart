@@ -1,31 +1,27 @@
 import 'dart:convert';
 
-class SiteUsersResponse {
-    SiteUsersResponse({
-        required this.id,
-        required this.name,
-        required this.username,
-        required this.image,
-        required this.role,
-        required this.online,
-        required this.isActive,
-    });
-    String id;
-    String name;
-    String username;
-    String image;
-    String role;
-    bool online;
-    bool isActive;
+import 'models.dart';
 
-    factory SiteUsersResponse.extraerInfo(json) => SiteUsersResponse(
-        id       : json["users"]["_id"],
-        name     : json["users"]["name"],
-        username : json["users"]["username"],
-        image    : json["users"]["image"],
-        role     : json["users"]["role"],
-        online   : json["users"]["online"],
-        isActive : json["users"]["isActive"],
+SiteUsers siteUsersFromJson(String str) => SiteUsers.fromJson(json.decode(str));
+
+String siteUsersToJson(SiteUsers data) => json.encode(data.toJson());
+
+class SiteUsers {
+    SiteUsers({
+        required this.status,
+        required this.users,
+    });
+
+    bool status;
+    List<User> users;
+
+    factory SiteUsers.fromJson(Map<String, dynamic> json) => SiteUsers(
+        status: json["status"],
+        users: List<User>.from(json["users"].map((x) => User.convertirJson(x))),
     );
 
+    Map<String, dynamic> toJson() => {
+        "status": status,
+        "users": List<dynamic>.from(users.map((x) => x.aJson())),
+    };
 }

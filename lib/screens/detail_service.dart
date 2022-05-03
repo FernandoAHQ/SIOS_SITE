@@ -183,7 +183,7 @@ class DetailService extends StatelessWidget {
 }
 
 AssetImage setImage(String severity){
-    if (severity == 'several') {
+    if (severity == 'severe') {
       return const AssetImage('assets/status_icons/Red-Status-Icon.png');
     }
     else if (severity == 'elevated') {

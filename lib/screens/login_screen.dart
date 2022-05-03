@@ -26,7 +26,7 @@ class _LoginStructure extends StatelessWidget {
 
     final size = MediaQuery.of(context).size;
     
-    return Container(
+    return SizedBox(
       height: size.height,
       width: size.width,
       child: Column(

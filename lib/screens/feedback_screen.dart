@@ -4,23 +4,13 @@ import 'package:sios_app/providers/providers.dart';
 import 'package:sios_app/theme/app_theme.dart';
 import 'package:sios_app/widgets/widgets.dart';
 
-class FeedbackScreen extends StatefulWidget {
-
-  @override
-  State<FeedbackScreen> createState() => _FeedbackScreenState();
-}
-
-class _FeedbackScreenState extends State<FeedbackScreen> {
-
-  bool isNetworkEquip = false;
-  bool isTerminalEquip = false;
+class FeedbackScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
 
     final feedbackProvider = Provider.of<FeedBackProvider>(context);
     final siteUProv = Provider.of<UsersSiteProvider>(context);
-
 
     siteUProv.getSiteUsers();
     
@@ -44,6 +34,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   ),
 
                   _CustomFormFields(
+                    initialValue: feedbackProvider.description,
                     onChange: (value) => feedbackProvider.description = value!,
                   ),
                   
@@ -53,6 +44,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   ),
 
                   _CustomFormFields(
+                    initialValue: feedbackProvider.feedBack,
                     onChange: (value) => feedbackProvider.feedBack = value!,
                   ),
 
@@ -62,6 +54,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   ),
 
                   _CustomFormFields(
+                    initialValue: feedbackProvider.solution,
                     onChange: (value) => feedbackProvider.solution = value!,
                     maxLines: 2,
                   ),
@@ -79,8 +72,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     ),
                     checkColor: Colors.black,
                     activeColor: Colors.white,
-                    value: isTerminalEquip,
-                    onChanged: (value)=> setState(() { isTerminalEquip = value ?? true; })
+                    value: feedbackProvider.isTerminalEquip,
+                    onChanged: (value) => feedbackProvider.changeisTerminalEquip(value!),
                   ),
 
                   CheckboxListTile(
@@ -90,8 +83,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     ),
                     checkColor: Colors.black,
                     activeColor: Colors.white,
-                    value: isNetworkEquip,
-                    onChanged: (value)=> setState(() { isNetworkEquip = value ?? true; })
+                    value: feedbackProvider.isNetworkEquip,
+                    onChanged: (value) => feedbackProvider.changeIsNetworkEquip(value!),
                   ),
 
                   const CustomTitle(
@@ -100,7 +93,12 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   ),
 
                   UserListSlider(),
-              
+
+                  MaterialButton(
+                    child: const Icon(Icons.print),
+                    onPressed: feedbackProvider.printData
+                  )
+
                 ],
               
               )
@@ -117,18 +115,22 @@ class _CustomFormFields extends StatelessWidget {
 
   final int? maxLines;
   final onChange;
+  final String initialValue;
   
   const _CustomFormFields({
     Key? key,
     this.maxLines,
+    required this.initialValue,
     required this.onChange,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue,
+      // initialValue: 'Hola Mundo',
       onChanged: onChange,
-      controller: TextEditingController(),
+      // controller: TextEditingController(),
       maxLines: maxLines ?? 5,
       decoration: const InputDecoration(
             

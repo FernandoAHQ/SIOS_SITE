@@ -8,7 +8,7 @@ class UserListSlider extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     
     return Container(
-      // color: Colors.red,
+    //   color: Colors.red,
       width: double.infinity,
       height: size.height *.1,
 
@@ -16,7 +16,7 @@ class UserListSlider extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount: 10,
-        itemBuilder: (_,int index) => _UserCircleAvatar()
+        itemBuilder: (_,int index) => const _UserCircleAvatar()
       ),
       
     );
@@ -38,9 +38,9 @@ class _UserCircleAvatar extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         child: const FadeInImage(
       
-          fit: BoxFit.cover,
-          image: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU'),
-          placeholder: AssetImage('assets/loading.gif'),
+        	fit: BoxFit.cover,
+        	image: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU'),
+        	placeholder: AssetImage('assets/loading.gif'),
         
         ),
       ),
