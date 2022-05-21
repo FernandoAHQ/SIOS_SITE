@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class StatusWidget extends StatelessWidget {
 
-  final dynamic service;
+  final String status;
 
   const StatusWidget({
     Key? key,
-    required this.service
+    required this.status
   }) 
   : super(key: key);
 
@@ -37,16 +37,16 @@ class StatusWidget extends StatelessWidget {
   }
 
     Color setStatusColor(){
-    if (service['status'] == 'pending') {
+    if (status == 'pending') {
       return const Color(0xfff8b364);
     }
-    else if(service['status'] == 'assigned'){
+    else if(status == 'assigned'){
       return const Color(0xff58c0e6); 
     }
-    else if(service['status'] == 'in-progress'){
+    else if(status == 'in-progress'){
       return const Color(0xfff8b364); 
     }
-    else if(service['status'] == 'finalized'){
+    else if(status == 'finalized'){
       return const Color(0xff9bcb87); 
     }
     else{
@@ -56,16 +56,16 @@ class StatusWidget extends StatelessWidget {
 
   String setStatus(){
 
-    if (service['status'] == 'pending') {
+    if (status == 'pending') {
       return 'Pendiente';
     }
-    else if(service['status'] == 'assigned'){
+    else if(status == 'assigned'){
       return 'Asignado'; 
     }
-    else if(service['status'] == 'in-progress'){
+    else if(status == 'in-progress'){
       return 'En Proceso'; 
     }
-    else if(service['status'] == 'finalized'){
+    else if(status == 'finalized'){
       return 'Finalizado'; 
     }
     else{

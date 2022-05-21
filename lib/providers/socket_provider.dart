@@ -27,7 +27,7 @@ class SocketProvider extends ChangeNotifier{
     final token = await AuthService.getToken();
 
     _socket = io.io('https://sios-server.herokuapp.com/',
-    // _socket = io.io('http://10.1.25.46:4000/',
+    // _socket = io.io('http://10.1.25.40:4000/',
 
       io.OptionBuilder()
         .setTransports(['websocket'])
@@ -56,7 +56,6 @@ class SocketProvider extends ChangeNotifier{
     _socket.on('services-list', (servicios){
       services = servicios;
       notifyListeners();
-      // print(servicios);
 
     }
     );
@@ -67,6 +66,20 @@ class SocketProvider extends ChangeNotifier{
 
     _socket.disconnect();
 
+  }
+
+  void startService ( String toUserId, String fromUserId, String serviceId) {
+
+    // print('toUserId: '+toUserId);
+    // print('fromUserId: '+fromUserId);
+    // print('serviceId: '+serviceId);
+
+    _socket.emit('start',{
+      "to"  : toUserId,
+      "from": fromUserId,
+      "service"  : serviceId,
+    });
+    
   }
 
 }

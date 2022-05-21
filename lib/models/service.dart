@@ -9,6 +9,8 @@ class Service{
   String status;
   String createdAt;
   String severity;
+  String userId;
+  String toUserId;
 
   Service({
 
@@ -20,6 +22,8 @@ class Service{
     required this.status,
     required this.createdAt,
     required this.severity,
+    required this.userId,
+    required this.toUserId,
     
   });  
 
@@ -32,6 +36,8 @@ class Service{
     status      : json['service']['status'],
     createdAt   : json['service']['createdAt'],
     severity    : json['service']['severity'],
+    userId      : json['service']['assignedTo']['_id'],
+    toUserId    : json['service']['user']['_id'],
   );
 
 }

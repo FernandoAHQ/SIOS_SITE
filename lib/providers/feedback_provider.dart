@@ -11,23 +11,56 @@ class FeedBackProvider extends ChangeNotifier{
   bool isNetworkEquip = false;
   bool isTerminalEquip = false;
 
+  List<String> staff = [];
+
   changeIsNetworkEquip(bool value){
     isNetworkEquip = value;
-    print(value);
     notifyListeners();
   }
   changeisTerminalEquip(bool value){
     isTerminalEquip = value;
-    print(value);
     notifyListeners();
   }
 
+  tap( String value){
+    if (staff.contains(value)) {
+      staff.remove(value);
+    }
+    else{
+      staff.add(value);
+    }
+
+    notifyListeners();
+    
+  }
+
+  bool checkSelected( String value ){
+
+    if (staff.contains(value)) {
+      return true;
+    } else {
+      return false;
+    }
+    
+  }
+
+
   printData (){
-    print('descripcion '+description);
-    print('feedback '+feedBack);
-    print('solucion '+solution);
+    print('Descripcion '+description);
+    print('Feedback '+feedBack);
+    print('Solucion '+solution);
     print('Equipo terminal '+isTerminalEquip.toString());
     print('Equipo de Red '+isNetworkEquip.toString());
+    print('Staff '+staff.toString());
+  }
+
+  restartValues(){
+    description = '';
+    feedBack = '';
+    solution = '';
+    isNetworkEquip = false;
+    isTerminalEquip = false;
+    staff = [];
   }
 
 }

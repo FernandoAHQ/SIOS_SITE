@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class SeverityImage extends StatelessWidget {
 
   final Size size;
-  final dynamic service;
+  final String severity;
   
   const SeverityImage({
     Key? key,
     required this.size, 
-    required this.service
+    required this.severity
   }) : super(key: key);
 
   @override
@@ -16,9 +16,9 @@ class SeverityImage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 10),
       child: Container(
-        child: Image(image: setImage(service['severity']),fit: BoxFit.cover,),
-        height: size.height*0.09,
-        width: size.height*0.09,
+        child: Image(image: setImage(severity),fit: BoxFit.cover,),
+        height: size.height*0.1,
+        width: size.height*0.1,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100)
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sios_app/helpers/alerts.dart';
 import 'package:sios_app/providers/providers.dart';
 import 'package:sios_app/theme/app_theme.dart';
 import 'package:sios_app/widgets/widgets.dart';
@@ -12,11 +13,10 @@ class FeedbackScreen extends StatelessWidget {
     final feedbackProvider = Provider.of<FeedBackProvider>(context);
     final siteUProv = Provider.of<UsersSiteProvider>(context);
 
-    siteUProv.getSiteUsers();
     
     return Scaffold(
 
-      backgroundColor: Apptheme.primarylight,
+      backgroundColor: const Color(0xFF265cfc),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: SafeArea(
@@ -35,7 +35,7 @@ class FeedbackScreen extends StatelessWidget {
 
                   _CustomFormFields(
                     initialValue: feedbackProvider.description,
-                    onChange: (value) => feedbackProvider.description = value!,
+                    onChange: (value) => feedbackProvider.description = value,
                   ),
                   
                   const CustomTitle(
@@ -45,7 +45,7 @@ class FeedbackScreen extends StatelessWidget {
 
                   _CustomFormFields(
                     initialValue: feedbackProvider.feedBack,
-                    onChange: (value) => feedbackProvider.feedBack = value!,
+                    onChange: (value) => feedbackProvider.feedBack = value,
                   ),
 
                   const CustomTitle(
@@ -55,8 +55,8 @@ class FeedbackScreen extends StatelessWidget {
 
                   _CustomFormFields(
                     initialValue: feedbackProvider.solution,
-                    onChange: (value) => feedbackProvider.solution = value!,
-                    maxLines: 2,
+                    onChange: (value) => feedbackProvider.solution = value,
+                    maxLines: 3,
                   ),
 
                   const CustomTitle(
@@ -92,11 +92,32 @@ class FeedbackScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
 
-                  UserListSlider(),
+                  FutureBuilder(
+                    future: siteUProv.getSiteUsers(),
+                    builder: (context,snapshot){
+                      if (!snapshot.hasData) {
+                        return const Center(child: CircularProgressIndicator(),);
+                      }
+                      else{
+                        return UserListSlider();
+                      }
+                    }
+                    
+                  ),
 
-                  MaterialButton(
-                    child: const Icon(Icons.print),
-                    onPressed: feedbackProvider.printData
+                  Center(
+                    child: MaterialButton(
+                      color: Apptheme.secondary,
+                      child: const Icon(Icons.send),
+                      onPressed:(){}
+                    ),
+                  ),
+                  Center(
+                    child: MaterialButton(
+                      color: Colors.green,
+                      child: const Icon(Icons.print),
+                      onPressed: feedbackProvider.printData
+                    ),
                   )
 
                 ],
@@ -114,7 +135,7 @@ class FeedbackScreen extends StatelessWidget {
 class _CustomFormFields extends StatelessWidget {
 
   final int? maxLines;
-  final onChange;
+  final void Function(String) onChange;
   final String initialValue;
   
   const _CustomFormFields({
@@ -128,9 +149,7 @@ class _CustomFormFields extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: initialValue,
-      // initialValue: 'Hola Mundo',
       onChanged: onChange,
-      // controller: TextEditingController(),
       maxLines: maxLines ?? 5,
       decoration: const InputDecoration(
             

@@ -4,16 +4,16 @@ import 'package:sios_app/models/models.dart';
 
 class UsersSiteProvider extends ChangeNotifier{
 
-  late SiteUsers usuariosSite ;
-  List<SiteUsers> listaUsuarios = [];
+ SiteUsers usuariosSite = SiteUsers(status: false, users:[]);
 
-  getSiteUsers() async {
+  Future getSiteUsers() async {
 
     final resp = await http.get(Uri.parse('https://sios-server.herokuapp.com/api/users/all/active'));
+    // final resp = await http.get(Uri.parse('http://10.1.25.40:4000/api/users/all/active'));
     if (resp.statusCode == 200) {
-
       usuariosSite = siteUsersFromJson(resp.body);
-      
+
+      return usuariosSite.users;
     }
     
   }

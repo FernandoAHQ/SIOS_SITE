@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sios_app/models/models.dart';
+
+import 'package:sios_app/providers/providers.dart';
+
 class UserListSlider extends StatelessWidget {
 
 
@@ -6,42 +11,71 @@ class UserListSlider extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final size = MediaQuery.of(context).size;
+    final userListProvider = Provider.of<UsersSiteProvider>(context).usuariosSite.users;
     
-    return Container(
-    //   color: Colors.red,
+    return SizedBox(
       width: double.infinity,
-      height: size.height *.1,
+      height: size.height *.15,
 
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        itemCount: 10,
-        itemBuilder: (_,int index) => const _UserCircleAvatar()
+        itemCount: userListProvider.length,
+        itemBuilder: (_,int index) => _UserCircleAvatar(user: userListProvider[index],)
       ),
-      
     );
   }
 }
 
 class _UserCircleAvatar extends StatelessWidget {
-  const _UserCircleAvatar({ Key? key }) : super(key: key);
 
+  const _UserCircleAvatar({
+    Key? key,
+    required this.user
+  }) : super(key: key);
+
+  final User user;
+    
   @override
   Widget build(BuildContext context) {
 
+    final feedbackProvider = Provider.of<FeedBackProvider>(context);
     final size = MediaQuery.of(context).size;
-    
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5),
-      width: size.height*.1,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(50),
-        child: const FadeInImage(
-      
-        	fit: BoxFit.cover,
-        	image: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzHQv_th9wq3ivQ1CVk7UZRxhbPq64oQrg5Q&usqp=CAU'),
-        	placeholder: AssetImage('assets/loading.gif'),
-        
+    final isSelected = feedbackProvider.checkSelected(user.id);
+
+    return GestureDetector(
+      onTap: (){
+        feedbackProvider.tap(user.id);
+        // print(user.id);
+      },
+      child: Container(
+        margin: const EdgeInsets.all(5),
+        width: size.width*.2,
+        child: Column(
+          children: [
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(size.height*.1),
+                child: Stack(
+                  children: [
+                    FadeInImage(
+                      fit: BoxFit.cover,
+                      placeholder: const AssetImage('assets/loading.gif'),
+                      image: NetworkImage(user.image),
+                    ),
+                    if(isSelected)
+                      Container(color: const Color.fromRGBO(0, 0, 0, 0.5),),
+                      // Image(image: NetworkImage('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Light_green_check.svg/2048px-Light_green_check.svg.png'))
+                  ],
+                ),
+              ),
+            ),
+            FittedBox(
+              child: Text(
+                user.name
+              )
+            )
+          ],
         ),
       ),
     );

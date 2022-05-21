@@ -45,7 +45,7 @@ class _ReportCard extends StatelessWidget {
         child: Row(
           children: [
     
-            SeverityImage(size: size, service: service),
+            SeverityImage(size: size, severity: service['severity']),
             
             SizedBox(
                width: size.width*0.45,
@@ -87,7 +87,7 @@ class _ReportCard extends StatelessWidget {
             ),
     
             Expanded(
-              child: StatusWidget(service: service),
+              child: StatusWidget(status: service['status']),
             )
     
           ],

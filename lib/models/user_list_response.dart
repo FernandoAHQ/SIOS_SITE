@@ -4,8 +4,6 @@ import 'models.dart';
 
 SiteUsers siteUsersFromJson(String str) => SiteUsers.fromJson(json.decode(str));
 
-String siteUsersToJson(SiteUsers data) => json.encode(data.toJson());
-
 class SiteUsers {
     SiteUsers({
         required this.status,
@@ -20,8 +18,4 @@ class SiteUsers {
         users: List<User>.from(json["users"].map((x) => User.convertirJson(x))),
     );
 
-    Map<String, dynamic> toJson() => {
-        "status": status,
-        "users": List<dynamic>.from(users.map((x) => x.aJson())),
-    };
 }
