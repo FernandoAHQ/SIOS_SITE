@@ -150,7 +150,7 @@ class DetailService extends StatelessWidget {
                           // print('Iniciar');
 
                           socketProv.startService(
-                            service.user.id,
+                            service.user!.id,
                             service.assignedTo.id,
                             service.id,
                           );

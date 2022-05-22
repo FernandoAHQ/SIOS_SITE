@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import 'package:sios_app/models/models.dart';
 import 'package:sios_app/services/services.dart';
+import 'package:sios_app/widgets/widgets.dart';
 
 class HistoryView extends StatelessWidget {
   const HistoryView({ Key? key }) : super(key: key);
@@ -11,23 +14,34 @@ class HistoryView extends StatelessWidget {
 
     final historyProvider = Provider.of<ServiceQuery>(context);    
 
-    historyProvider.getHistory();
-
-    return ListView.builder(
-      itemCount: 15,
-      itemBuilder: (_,int index) => const _HistoryCard(),
-      physics: const BouncingScrollPhysics(),
+    return FutureBuilder(
+      future: historyProvider.getHistory(),
+      builder: (_, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator(),);
+        }
+        final historyList = snapshot.data as List<Service>;
+        return ListView.builder(
+          itemCount: historyList.length,
+          itemBuilder: (_,int index) => _HistoryCard(historyList[index]),
+          physics: const BouncingScrollPhysics(),
+        );
+      },
     );
   }
 }
 
 class _HistoryCard extends StatelessWidget {
-  const _HistoryCard({ Key? key }) : super(key: key);
+
+  const _HistoryCard(this.service);
+
+  final Service service;
 
   @override
   Widget build(BuildContext context) {
 
     final size = MediaQuery.of(context).size;
+    var parsedDate = DateFormat('KK:mm:ss').format(service.createdAt);
     
     return GestureDetector(
       onTap: () => Navigator.pushNamed(context, 'details'),
@@ -38,64 +52,52 @@ class _HistoryCard extends StatelessWidget {
         child: Row(
           children: [
     
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: Container(
-                height: size.height*.1,
-                width: size.height*.1,
-                decoration: BoxDecoration(
-                  color: const Color(0xff9bcb87),
-                  borderRadius: BorderRadius.circular(100)
-                ),
-              ),
-            ),
+            SeverityImage(size: size, severity: service.severity),
             
             SizedBox(
                width: size.width*0.5,
               child: Column(
                 mainAxisAlignment:MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
     
                   Text(
-                  'title',
-                  // service['report']['title'],
+                  service.report.title,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   textAlign: TextAlign.start,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontSize: 17
+                    fontSize: 12
                   ),),
     
                   Text(
-                  'department',
-                  // service['report']['department']['name'],
+                  service.report.department.name,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
-                    fontSize: 16
+                    fontSize: 12
                   ),),
                   
                   Text(
-                  'createdAt',
-                  // service['report']['createdAt'],
+                  parsedDate,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color(0xFF787878),
                     fontWeight: FontWeight.bold,
+                    fontSize: 11,
                   ),)
                   
                 ],
               ),
             ),
     
-            const Expanded(
+            Expanded(
               // child: Text('En proceso',textAlign: TextAlign.center,),
-              child: Text('status',textAlign: TextAlign.center,maxLines: 1,overflow: TextOverflow.ellipsis,),
+              child: StatusWidget(status: service.status)
             )
     
           ],

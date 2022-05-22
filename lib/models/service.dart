@@ -8,7 +8,7 @@ class Service {
     Service({
         required this.id,
         required this.report,
-        required this.user,
+        this.user,
         required this.status,
         required this.device,
         required this.staff,
@@ -20,7 +20,7 @@ class Service {
 
     String id;
     Report report;
-    AssignedTo user;
+    AssignedTo? user;
     String status;
     List<dynamic> device;
     List<dynamic> staff;

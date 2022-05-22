@@ -40,8 +40,8 @@ class ServiceQuery extends ChangeNotifier{
     final resp = await http.get(Uri.parse('$_baseUrl/services/history/site/$userId?page=$_historyPage'));
     if (resp.statusCode == 200) {
       final jsonData = json.decode(resp.body);
-      final history = HistoryResponse.fromMap(jsonData);
-      // print(jsonData);
+      final history = HistoryResponse.fromMap(jsonData).services;
+      return history;
     }
 
   }
