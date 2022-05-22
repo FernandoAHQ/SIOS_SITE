@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:sios_app/services/services.dart';
 
 class HistoryView extends StatelessWidget {
   const HistoryView({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    final historyProvider = Provider.of<ServiceQuery>(context);    
+
+    historyProvider.getHistory();
+
     return ListView.builder(
       itemCount: 15,
       itemBuilder: (_,int index) => const _HistoryCard(),

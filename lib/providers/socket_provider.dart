@@ -82,4 +82,12 @@ class SocketProvider extends ChangeNotifier{
     
   }
 
+  // void endService (''){
+
+  //   _socket.emit('',{
+
+  //   });
+
+  // }
+
 }

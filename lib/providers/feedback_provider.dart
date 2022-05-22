@@ -12,13 +12,20 @@ class FeedBackProvider extends ChangeNotifier{
   bool isTerminalEquip = false;
 
   List<String> staff = [];
+  List<String> device = [];
 
   changeIsNetworkEquip(bool value){
     isNetworkEquip = value;
+    isNetworkEquip
+    ?device.add('red')
+    :device.remove('red');
     notifyListeners();
   }
   changeisTerminalEquip(bool value){
     isTerminalEquip = value;
+    isTerminalEquip
+    ?device.add('terminal')
+    :device.remove('terminal');
     notifyListeners();
   }
 
@@ -46,12 +53,11 @@ class FeedBackProvider extends ChangeNotifier{
 
 
   printData (){
-    print('Descripcion '+description);
-    print('Feedback '+feedBack);
-    print('Solucion '+solution);
-    print('Equipo terminal '+isTerminalEquip.toString());
-    print('Equipo de Red '+isNetworkEquip.toString());
-    print('Staff '+staff.toString());
+    print('descripcion: $description');
+    print('feedback: $feedBack');
+    print('solucion: $solution');
+    print('device: $device');
+    print('staff: $staff');
   }
 
   restartValues(){

@@ -9,12 +9,13 @@ import 'package:sios_app/theme/app_theme.dart';
 import 'package:sios_app/widgets/widgets.dart';
 
 class DetailService extends StatelessWidget {
+  const DetailService({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
   final size = MediaQuery.of(context).size;
-  final idreport = ModalRoute.of(context)?.settings.arguments.toString();
+  final idreport = ModalRoute.of(context)!.settings.arguments.toString();
   final socketProv = Provider.of<SocketProvider>(context);
   final serviceProv = Provider.of<ServiceQuery>(context,listen: false);
   final feedbackProv = Provider.of<FeedBackProvider>(context,listen: false);
@@ -34,7 +35,7 @@ class DetailService extends StatelessWidget {
         }
         final Service service = snapshot.data as Service;
         
-      var parsedDate = DateFormat('KK:mm:ss').format(DateTime.parse(service.createdAt));
+      var parsedDate = DateFormat('KK:mm:ss').format(service.createdAt);
 
       return Scaffold(
           appBar: AppBar(
@@ -64,7 +65,7 @@ class DetailService extends StatelessWidget {
                           //*Titulo del servicio 
           
                           Text(
-                            service.title,
+                            service.report.title,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold
@@ -74,7 +75,7 @@ class DetailService extends StatelessWidget {
                           //*Texto de Departamento 
                           
                           Text(
-                            service.department,
+                            service.report.department.name,
                             textAlign: TextAlign.center,
                           ),
           
@@ -113,7 +114,7 @@ class DetailService extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(service.description),
+                          child: Text(service.report.description),
                         ),
                         // Row(
                         //   children: const[
@@ -149,8 +150,8 @@ class DetailService extends StatelessWidget {
                           // print('Iniciar');
 
                           socketProv.startService(
-                            service.toUserId,
-                            service.userId,
+                            service.user.id,
+                            service.assignedTo.id,
                             service.id,
                           );
 

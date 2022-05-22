@@ -5,7 +5,7 @@ import 'package:sios_app/models/models.dart';
 import 'package:sios_app/providers/providers.dart';
 
 class UserListSlider extends StatelessWidget {
-
+  const UserListSlider({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

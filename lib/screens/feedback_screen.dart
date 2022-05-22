@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sios_app/helpers/alerts.dart';
+
 import 'package:sios_app/providers/providers.dart';
-import 'package:sios_app/theme/app_theme.dart';
 import 'package:sios_app/widgets/widgets.dart';
 
 class FeedbackScreen extends StatelessWidget {
+  const FeedbackScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     final feedbackProvider = Provider.of<FeedBackProvider>(context);
-    final siteUProv = Provider.of<UsersSiteProvider>(context);
-
     
     return Scaffold(
 
@@ -87,31 +85,26 @@ class FeedbackScreen extends StatelessWidget {
                     onChanged: (value) => feedbackProvider.changeIsNetworkEquip(value!),
                   ),
 
-                  const CustomTitle(
-                    text:'Personal Adicional',
-                    color: Colors.white,
-                  ),
+                  //!widget selector de site users
 
-                  FutureBuilder(
-                    future: siteUProv.getSiteUsers(),
-                    builder: (context,snapshot){
-                      if (!snapshot.hasData) {
-                        return const Center(child: CircularProgressIndicator(),);
-                      }
-                      else{
-                        return UserListSlider();
-                      }
-                    }
+                  // const CustomTitle(
+                  //   text:'Personal Adicional',
+                  //   color: Colors.white,
+                  // ),
+
+                  // FutureBuilder(
+                  //   future: siteUProv.getSiteUsers(),
+                  //   builder: (context,snapshot){
+                  //     if (!snapshot.hasData) {
+                  //       return const Center(child: CircularProgressIndicator(),);
+                  //     }
+                  //     else{
+                  //       return const UserListSlider();
+                  //     }
+                  //   }
                     
-                  ),
+                  // ),
 
-                  Center(
-                    child: MaterialButton(
-                      color: Apptheme.secondary,
-                      child: const Icon(Icons.send),
-                      onPressed:(){}
-                    ),
-                  ),
                   Center(
                     child: MaterialButton(
                       color: Colors.green,

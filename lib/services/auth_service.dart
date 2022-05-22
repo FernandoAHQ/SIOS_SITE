@@ -30,6 +30,10 @@ class AuthService extends ChangeNotifier{
 
     final Map<String,dynamic> decodedResp = json.decode(resp.body);
 
+    if (decodedResp.containsKey('user')) {
+      await storage.write(key: 'userId', value: decodedResp['user']['_id']);
+    }
+
     if(decodedResp.containsKey('accessToken')){
       await storage.write(key: 'token', value: decodedResp['accessToken']);
       user = User.convertirJson(decodedResp['user']);
@@ -46,6 +50,7 @@ class AuthService extends ChangeNotifier{
   Future logout () async {
 
     await storage.delete(key: 'token');
+    await storage.delete(key: 'userId');
     return;
     
   }
@@ -79,6 +84,12 @@ class AuthService extends ChangeNotifier{
     final token = await _storage.read(key: 'token');
     return token!;
 
+  }
+
+  static Future<String> getUserId() async{
+    const _storage = FlutterSecureStorage();
+    final userId = await _storage.read(key: 'userId');
+    return userId!;
   }
 
 }
